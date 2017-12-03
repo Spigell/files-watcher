@@ -12,7 +12,32 @@ For remote copy/move used rsync.
 
 # USAGE
 
-## via Sparrowdo
+## via Sparrow boxes (with gogs-backuper plugin)
+    
+     $ cat ./backup.json
+
+     [ 
+       { "plugin" : "gogs-dockerized-backuper", 
+         "task" : "backup gogs", 
+         "data" : { 
+           "docker" : 
+             { "name" : "gogs }, 
+           "destination" : "/clr/backup/gogs" 
+         } 
+       },
+   
+       { "plugin" : "file-watcher", 
+         "task" : "delete old backups", 
+         "data" : { 
+            "action" : "delete",
+            "dir" : "/clr/backup/gogs",
+            "conditions" : {
+              "older" : "14 days"
+           } 
+         } 
+       }
+     ]
+
 
 
 # Parameters
@@ -38,7 +63,7 @@ Used only in 'copy|move' `action`.
 A Local/remote directory for destination.
 
 ### server
-A Domain/ip of remote server.
+A Domain/ip of remote `server`.
 
 ### user
 A user for access to `server`.
