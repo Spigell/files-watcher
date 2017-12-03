@@ -68,7 +68,7 @@ A Domain/ip of remote `server`.
 ### user
 A user for access to `server`.
 
-### ssh_private_key
+### ssh\_private\_key
 A ssh key file for `user`
 
 # See also
