@@ -11,14 +11,18 @@ ssh_private_key=$(config destination.ssh_private_key)
 condition_older=$(config conditions.older)
 condition_newer=$(config conditions.newer)
 
+rsync_opts=$(config rsync.options)
+ssh_config_created=$(config ssh.config)
+
 if [[ $ssh_private_key ]]; then
-ssh_opts='-e ssh'
-ssh_opts+=" -i $ssh_private_key"
+  ssh_opts+="IdentityFile $ssh_private_key"
 fi
 
-create_rsync_cmd() {
-  rsync_cmd="rsync \"$ssh_opts\" -z $rsync_opts $file $destination_user@$destination_server:$destination_dir"
-  echo $rsync_cmd
+create_ssh_config() {
+cat << CONFIG > $ssh_config_created
+Host $destination_server
+  $ssh_opts
+CONFIG
 }
 
 translate_time() {

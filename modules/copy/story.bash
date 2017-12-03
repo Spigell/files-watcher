@@ -9,12 +9,17 @@ for file in $files; do
   echo "Processing file: $file"
 
   if [[ "$remote" == 'true' ]]; then
-    rsync_cmd=$(create_rsync_cmd)
 
     if [[ "$dry_run" ]]; then
-       echo -e "Your cmd for rsync will be: \n $rsync_cmd"
+       echo -e "Your cmd for rsync will be: 
+
+       rsync -z -e "ssh -F $ssh_config_created" $file $destination_user@$destination_server:$destination_dir/
+       "
+
     else
-       $rsync_cmd
+      create_ssh_config
+
+      rsync -z -e "ssh -F $ssh_config_created" $file $destination_user@$destination_server:$destination_dir/ 
     fi
   else
     if [[ "$dry_run" ]]; then
