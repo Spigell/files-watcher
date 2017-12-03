@@ -30,7 +30,7 @@ For remote copy/move used rsync.
          "task" : "delete old backups", 
          "data" : { 
             "action" : "delete",
-            "dir" : "/clr/backup/gogs",
+            "directory" : "/clr/backup/gogs",
             "conditions" : {
               "older" : "14 days"
            } 
